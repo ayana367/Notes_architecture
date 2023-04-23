@@ -15,10 +15,15 @@ object Versions {
     const val fragment = "1.5.6"
     const val viewBindingDelegate = "1.5.8"
     const val lifecycle = "2.6.1"
+    const val kotlinBom ="1.8.0"
 }
 
 
 object Deps {
+
+    object Bom{
+        const val kotlinBom = "org.jetbrains.kotlin:kotlin-bom:${Versions.kotlinBom}"
+    }
     object UI {
         const val androidCore = "androidx.core:core-ktx:${Versions.androidCore}"
         const val appcompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
@@ -52,6 +57,7 @@ object Deps {
     }
 
     object Lifecycle {
+        const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
         const val lifecycle = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
     }
 

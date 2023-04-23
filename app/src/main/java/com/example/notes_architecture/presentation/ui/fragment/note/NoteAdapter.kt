@@ -11,9 +11,9 @@ import com.example.notes_architecture.domain.model.Note
 
 
 class NoteAdapter(
-    private var onClick: (com.example.notes_architecture.domain.model.Note) -> Unit,
-    private var onLongClick: (com.example.notes_architecture.domain.model.Note) -> Unit,
-) : ListAdapter<com.example.notes_architecture.domain.model.Note, NoteAdapter.NoteViewHolder>(DiffUtilNoteItemCallback()) {
+    private var onClick: (Note) -> Unit,
+    private var onLongClick: (Note) -> Unit,
+) : ListAdapter<Note, NoteAdapter.NoteViewHolder>(DiffUtilNoteItemCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -29,7 +29,7 @@ class NoteAdapter(
     inner class NoteViewHolder(
         private val binding: ItemNotesBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(note: com.example.notes_architecture.domain.model.Note) {
+        fun onBind(note: Note) {
             binding.tvTitle.text = note.title
             binding.tvDesc.text = note.descriptions
             itemView.setOnClickListener {
@@ -47,12 +47,12 @@ class NoteAdapter(
     }
 
     @SuppressLint("DiffUtilEquals")
-    private class DiffUtilNoteItemCallback : DiffUtil.ItemCallback<com.example.notes_architecture.domain.model.Note>() {
-        override fun areItemsTheSame(oldItem: com.example.notes_architecture.domain.model.Note, newItem: com.example.notes_architecture.domain.model.Note): Boolean {
+    private class DiffUtilNoteItemCallback : DiffUtil.ItemCallback<Note>() {
+        override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: com.example.notes_architecture.domain.model.Note, newItem: com.example.notes_architecture.domain.model.Note): Boolean {
+        override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem == newItem
         }
 

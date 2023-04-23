@@ -8,11 +8,11 @@ import java.io.IOException
 
 abstract class BaseRepository {
     protected fun <T> doRequest(request: suspend () -> T) = flow {
-        emit(com.example.notes_architecture.domain.utils.Resource.Loading())
+        emit(Resource.Loading())
         try {
-            emit(com.example.notes_architecture.domain.utils.Resource.Success(request()))
+            emit(Resource.Success(request()))
         } catch (ioException:IOException){
-            emit(com.example.notes_architecture.domain.utils.Resource.Error(ioException.localizedMessage ?: "Unknown error"))
+            emit(Resource.Error(ioException.localizedMessage ?: "Unknown error"))
         }
     }.flowOn(Dispatchers.IO)
 }

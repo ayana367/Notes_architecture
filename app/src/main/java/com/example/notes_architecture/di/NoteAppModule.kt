@@ -25,15 +25,15 @@ object NoteAppModule {
 
     ) = Room.databaseBuilder(
         context,
-        com.example.notes_architecture.data.model.NoteDatabase::class.java,
+        NoteDatabase::class.java,
         "note_db"
     ).allowMainThreadQueries().build()
 
     @Provides
-    fun provideNoteDao(noteDatabase: com.example.notes_architecture.data.model.NoteDatabase) = noteDatabase.noteDao()
+    fun provideNoteDao(noteDatabase: NoteDatabase) = noteDatabase.noteDao()
 
     @Provides
-    fun provideNoteRepository(noteDao: com.example.notes_architecture.data.lokal.NoteDao): com.example.notes_architecture.domain.repository.NoteRepository {
-      return com.example.notes_architecture.data.repository.NoteRepositoryImpl(noteDao)
+    fun provideNoteRepository(noteDao: NoteDao): NoteRepository {
+      return NoteRepositoryImpl(noteDao)
     }
 }

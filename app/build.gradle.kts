@@ -1,7 +1,7 @@
 plugins {
-    id (Plugins.AGP.application)
-    id (Plugins.Kotlin.android)
-    id (Plugins.Kotlin.kapt)
+    id(Plugins.AGP.application)
+    id(Plugins.Kotlin.android)
+    id(Plugins.Kotlin.kapt)
     id(Plugins.DaggerHilt.hilt)
 }
 
@@ -14,16 +14,20 @@ android {
         minSdk = AndroidConfig.minSdk
         targetSdk = AndroidConfig.targetSdk
         versionCode = AndroidConfig.versionCode
-        versionName = AndroidConfig.versionName
+        versionName = "1.0"
 
-        testInstrumentationRunner = AndroidConfig.androidTestInstrumentation
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        release {
+        getByName("release"){
             isMinifyEnabled = false
-            proguardFiles( getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles (
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -36,55 +40,51 @@ android {
         correctErrorTypes = true
     }
 
-    buildFeatures{
-        viewBinding = true
+    viewBinding{
+        android.buildFeatures.viewBinding=true
     }
 }
 
-dependencies {
 
-    //Module
+dependencies {
+    //Modules
     implementation(project(":data"))
     implementation(project(":domain"))
 
-    // Android
+    //UI
     implementation(Deps.UI.androidCore)
     implementation(Deps.UI.appcompat)
     implementation(Deps.UI.material)
-
-    // Container layout
-    implementation(Deps.UI.constraint)
-    implementation(Deps.UI.appcompat)
-    implementation(Deps.UI.material)
     implementation(Deps.UI.constraint)
 
-    // Test
-    testImplementation(Deps.UI.junit)
+    //Test
+    testImplementation(Deps.UI.espresso)
     androidTestImplementation(Deps.UI.extJunit)
-    androidTestImplementation(Deps.UI.espresso)
-
-    // Fragment
+    androidTestImplementation(Deps.UI.junit)
     implementation(Deps.UI.fragment)
 
-    // Room
-    implementation(Deps.Room.room)
+    //Room
     implementation(Deps.Room.roomRuntime)
     kapt(Deps.Room.compiler)
+    implementation(Deps.Room.room)
 
-    // Hilt
+    //Coroutines
+    implementation(Deps.Coroutines.android)
+
+    //Hilt
     implementation(Deps.DaggerHilt.hilt)
     kapt(Deps.DaggerHilt.compiler)
 
-    // Coroutines
-    implementation(Deps.Coroutines.android)
+    //ViewModel
+    implementation(Deps.Lifecycle.viewmodel)
+    implementation(Deps.Lifecycle.lifecycle)
 
-    // Nav component
+    //Navigation
     implementation(Deps.NavComponent.fragment)
     implementation(Deps.NavComponent.ui)
+    implementation(platform(Deps.Bom.kotlinBom))
 
-    // View Binding property delegate (reflection-free flavor)
+    //BindingDelegate
     implementation(Deps.ViewBindingDelegate.viewBindingDelegate)
 
-    // Lifecycle
-    implementation(Deps.Lifecycle.lifecycle)
 }

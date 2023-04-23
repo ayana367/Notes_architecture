@@ -9,12 +9,10 @@ java {
 }
 
 dependencies{
-    //Module
-    implementation(project(":data"))
-    //Coroutines
+
+    //Coroutine
     implementation(Deps.Coroutines.core)
 
-    //Javax
+    //Inject
     implementation(Deps.JavaX.inject)
-
 }

@@ -14,6 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Notes_architecture"
 include (":app")
-include(":data")
 include(":domain")
-include(":di")
+include(":data")

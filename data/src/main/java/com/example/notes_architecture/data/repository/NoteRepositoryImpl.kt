@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class NoteRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao
-): com.example.notes_architecture.domain.repository.NoteRepository, BaseRepository() {
-    override fun createNote(note: com.example.notes_architecture.domain.model.Note) = doRequest {
+): NoteRepository, BaseRepository() {
+    override fun createNote(note: Note) = doRequest {
         noteDao.createNote(note.toEntity())
     }
 
@@ -19,11 +19,11 @@ class NoteRepositoryImpl @Inject constructor(
         noteDao.getAllNotes().map { it.toNote() }
     }
 
-    override fun editNote(note: com.example.notes_architecture.domain.model.Note) = doRequest{
+    override fun editNote(note: Note) = doRequest{
         noteDao.editNote(note.toEntity())
     }
 
-    override fun delete(note: com.example.notes_architecture.domain.model.Note) = doRequest {
+    override fun delete(note: Note) = doRequest {
         noteDao.deleteNote(note.toEntity())
     }
 

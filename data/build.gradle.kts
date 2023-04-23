@@ -1,9 +1,8 @@
-
 plugins {
-    id (Plugins.AGP.application)
-    id (Plugins.Kotlin.android)
-    id (Plugins.Kotlin.kapt)
-    id(Plugins.DaggerHilt.hilt)
+    id(Plugins.AGP.library)
+    id(Plugins.Kotlin.kapt)
+    id(Plugins.Kotlin.android)
+
 }
 
 android {
@@ -14,7 +13,8 @@ android {
         minSdk = AndroidConfig.minSdk
         targetSdk = AndroidConfig.targetSdk
 
-        testInstrumentationRunner = AndroidConfig.androidTestInstrumentation
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -33,30 +33,24 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    kapt {
-        correctErrorTypes = true
-    }
-
 }
 
 dependencies {
-
-    //Hilt
-    implementation(Deps.DaggerHilt.hilt)
-    kapt(Deps.DaggerHilt.compiler)
-
-    //Module
+    //Modules
     implementation(project(":domain"))
 
     //Testing
-    androidTestImplementation(Deps.UI.junit)
+    testImplementation(Deps.UI.junit)
     androidTestImplementation(Deps.UI.extJunit)
 
-    // Room
+    //Room
     implementation(Deps.Room.room)
-    implementation(Deps.Room.roomRuntime)
     kapt(Deps.Room.compiler)
+    implementation(Deps.Room.roomRuntime)
 
     //Coroutines
     implementation(Deps.Coroutines.android)
+
+    //Inject
+    implementation(Deps.JavaX.inject)
 }
